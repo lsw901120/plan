@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>내일 전체 일정</title>
+    <title>전체 일정</title>
     <style>
       :root {
         color-scheme: light;
@@ -203,19 +203,57 @@
         min-height: 24px;
       }
 
-      .description {
-        margin: 12px 0 14px;
-        color: #394144;
-        font-size: 15px;
+      .restaurant-list {
+        display: grid;
+        gap: 10px;
+        margin: 14px 0 0;
+      }
+
+      .restaurant-link {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+        align-items: center;
+        min-height: 52px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfaf6;
+        color: var(--ink);
+      }
+
+      .restaurant-rank {
+        display: inline-grid;
+        place-items: center;
+        min-width: 54px;
+        min-height: 28px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .restaurant-name {
+        font-size: 17px;
+        font-weight: 900;
       }
 
       .plan-tabs {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
         margin: 18px 0 0;
         padding: 16px;
         border: 1px solid var(--line);
         border-radius: 8px;
         background: var(--panel);
         box-shadow: 0 8px 22px rgba(31, 37, 40, 0.06);
+      }
+
+      .plan-main {
+        min-width: 0;
       }
 
       .plan-tabs h2 {
@@ -293,6 +331,45 @@
         font-size: 15px;
       }
 
+      .route-list {
+        display: grid;
+        gap: 10px;
+        margin: 14px 0 0;
+      }
+
+      .parking-list {
+        display: grid;
+        gap: 10px;
+        margin: 14px 0 0;
+      }
+
+      .section-label {
+        margin: 16px 0 0;
+        color: #2f383b;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .route-item {
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfaf6;
+      }
+
+      .route-place {
+        display: block;
+        margin: 1px 0 3px;
+        font-size: 16px;
+        font-weight: 900;
+      }
+
+      .route-point {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
       @media (min-width: 760px) {
         .page {
           margin: 28px auto;
@@ -322,6 +399,7 @@
         }
 
         .plan-tabs {
+          grid-template-columns: 1fr;
           padding: 18px;
         }
       }
@@ -349,6 +427,10 @@
 
         .plan-heading {
           display: grid;
+        }
+
+        .plan-tabs {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -379,16 +461,41 @@
             <div class="card-main">
               <div class="card-top">
                 <h2>점심</h2>
-                <span class="tag">식당은 업데이트 예정</span>
+                <span class="tag">점심 식사 후보</span>
               </div>
               <div class="meta">
                 <span>광교 아비뉴프랑</span>
-                <span>식당 후보 추후 추가</span>
+                <span>1순위부터 3순위</span>
               </div>
-              <p class="description">
-                점심은 광교 아비뉴프랑 안에서 먹는 방향으로 먼저 잡았습니다.
-                식당이 정해지면 이 카드에 메뉴, 가격대, 간단한 설명을 추가할게요.
-              </p>
+              <div class="restaurant-list" aria-label="점심 식사 후보">
+                <a
+                  class="restaurant-link"
+                  href="https://naver.me/5pws7DdW"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span class="restaurant-rank">1순위</span>
+                  <span class="restaurant-name">미케</span>
+                </a>
+                <a
+                  class="restaurant-link"
+                  href="https://naver.me/FeXRO9Px"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span class="restaurant-rank">2순위</span>
+                  <span class="restaurant-name">갓잇</span>
+                </a>
+                <a
+                  class="restaurant-link"
+                  href="https://naver.me/xSFaZvTi"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span class="restaurant-rank">3순위</span>
+                  <span class="restaurant-name">정희</span>
+                </a>
+              </div>
             </div>
           </article>
 
@@ -397,90 +504,162 @@
             <div class="card-main">
               <div class="card-top">
                 <h2>커피</h2>
-                <span class="tag">카페는 유동적으로</span>
+                <span class="tag">카페 후보</span>
               </div>
               <div class="meta">
-                <span>아비뉴프랑 근처</span>
+                <span>광교 아비뉴프랑</span>
                 <span>또는 신동카페거리</span>
               </div>
-              <p class="description">
-                점심 먹은 뒤 근처에서 바로 커피를 마시거나, 분위기를 조금 더
-                보려면 신동카페거리 쪽으로 이동하는 흐름입니다.
-              </p>
+              <div class="restaurant-list" aria-label="카페 후보">
+                <a
+                  class="restaurant-link"
+                  href="https://naver.me/xTyWi4VB"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span class="restaurant-rank">1후보</span>
+                  <span class="restaurant-name">나따오비까</span>
+                </a>
+                <div class="restaurant-link">
+                  <span class="restaurant-rank">2후보</span>
+                  <span class="restaurant-name">신동카페거리</span>
+                </div>
+              </div>
             </div>
           </article>
 
         </section>
 
         <section class="plan-tabs" aria-label="Plan A와 Plan B 선택">
-          <h2>플랜 선택</h2>
-          <div class="tab-buttons" role="tablist" aria-label="날씨별 플랜">
-            <button
-              class="tab-button"
-              type="button"
-              role="tab"
-              id="plan-a-tab"
-              aria-controls="plan-a-panel"
-              aria-selected="true"
-              data-plan-tab="a"
+          <div class="mark">3</div>
+          <div class="plan-main">
+            <h2>플랜 선택</h2>
+            <div class="tab-buttons" role="tablist" aria-label="날씨별 플랜">
+              <button
+                class="tab-button"
+                type="button"
+                role="tab"
+                id="plan-a-tab"
+                aria-controls="plan-a-panel"
+                aria-selected="true"
+                data-plan-tab="a"
+              >
+                Plan A
+              </button>
+              <button
+                class="tab-button"
+                type="button"
+                role="tab"
+                id="plan-b-tab"
+                aria-controls="plan-b-panel"
+                aria-selected="false"
+                data-plan-tab="b"
+              >
+                Plan B
+              </button>
+            </div>
+
+            <article
+              class="plan-panel"
+              id="plan-a-panel"
+              role="tabpanel"
+              aria-labelledby="plan-a-tab"
+              data-plan-panel="a"
             >
-              Plan A
-            </button>
-            <button
-              class="tab-button"
-              type="button"
-              role="tab"
-              id="plan-b-tab"
-              aria-controls="plan-b-panel"
-              aria-selected="false"
-              data-plan-tab="b"
+              <div class="plan-heading">
+                <h3>Plan A · 행궁동</h3>
+                <span class="tag">날씨 괜찮으면</span>
+              </div>
+              <div class="plan-meta">
+                <span>행궁동</span>
+                <span>걷기 좋은 날 선택</span>
+              </div>
+              <div class="section-label">주차 후보</div>
+              <div class="parking-list" aria-label="Plan A 행궁동 주차 후보">
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">1순위 · 화홍문 공영주차장</strong>
+                    <span class="route-point">행궁동 이동 전 우선 확인</span>
+                  </span>
+                </div>
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">2순위 · 연무동 공영주차장</strong>
+                    <span class="route-point">대안 주차장</span>
+                  </span>
+                </div>
+              </div>
+              <div class="section-label">행궁동 장소</div>
+              <div class="route-list" aria-label="Plan A 행궁동 장소">
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">뜸 화홍문점</strong>
+                    <span class="route-point">한식 맛집, 깔끔한 분위기</span>
+                  </span>
+                </div>
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">장안문 산책</strong>
+                    <span class="route-point">성곽길, 노을 명소</span>
+                  </span>
+                </div>
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">렉스프레소뮤지엄 행궁</strong>
+                    <span class="route-point">공룡 컨셉 카페</span>
+                  </span>
+                </div>
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">행리단길 카페 BOOTER</strong>
+                    <span class="route-point">행리단길 카페 후보</span>
+                  </span>
+                </div>
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">뮤니버스</strong>
+                    <span class="route-point">감성 소품샵</span>
+                  </span>
+                </div>
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">소품샵거리 쪽</strong>
+                    <span class="route-point">소품샵 구경</span>
+                  </span>
+                </div>
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">행궁덩크</strong>
+                    <span class="route-point">체험형 공간</span>
+                  </span>
+                </div>
+                <div class="route-item">
+                  <span>
+                    <strong class="route-place">밀빛 행궁점</strong>
+                    <span class="route-point">빵 맛집, 디저트</span>
+                  </span>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="plan-panel"
+              id="plan-b-panel"
+              role="tabpanel"
+              aria-labelledby="plan-b-tab"
+              data-plan-panel="b"
+              hidden
             >
-              Plan B
-            </button>
+              <div class="plan-heading">
+                <h3>Plan B · 수원 스타필드</h3>
+                <span class="tag">덥거나 비 오면</span>
+              </div>
+              <div class="plan-meta">
+                <span>수원 스타필드</span>
+                <span>실내 중심 대안</span>
+              </div>
+            </article>
           </div>
-
-          <article
-            class="plan-panel"
-            id="plan-a-panel"
-            role="tabpanel"
-            aria-labelledby="plan-a-tab"
-            data-plan-panel="a"
-          >
-            <div class="plan-heading">
-              <h3>Plan A · 행궁동</h3>
-              <span class="tag">날씨 괜찮으면</span>
-            </div>
-            <div class="plan-meta">
-              <span>행궁동</span>
-              <span>걷기 좋은 날 선택</span>
-            </div>
-            <p>
-              너무 덥지 않고 비가 안 오면 행궁동으로 이동합니다. 행궁동 안의
-              상세 코스는 나중에 업데이트할 예정입니다.
-            </p>
-          </article>
-
-          <article
-            class="plan-panel"
-            id="plan-b-panel"
-            role="tabpanel"
-            aria-labelledby="plan-b-tab"
-            data-plan-panel="b"
-            hidden
-          >
-            <div class="plan-heading">
-              <h3>Plan B · 수원 스타필드</h3>
-              <span class="tag">덥거나 비 오면</span>
-            </div>
-            <div class="plan-meta">
-              <span>수원 스타필드</span>
-              <span>실내 중심 대안</span>
-            </div>
-            <p>
-              날씨가 좋지 않으면 수원 스타필드로 가는 플랜입니다. 실내라 이동
-              부담이 적고, 식사 후 일정 변경도 편합니다.
-            </p>
-          </article>
         </section>
       </section>
     </main>
