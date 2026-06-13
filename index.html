@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>내일 점심 후보 4곳</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #1f2528;
+        --muted: #687176;
+        --line: #dce2df;
+        --paper: #fbfaf6;
+        --panel: #ffffff;
+        --sage: #667d69;
+        --brick: #a24d35;
+        --mustard: #c28a2e;
+        --blue: #3d687f;
+        --shadow: 0 18px 50px rgba(31, 37, 40, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR",
+          "Apple SD Gothic Neo", sans-serif;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(100%, 920px);
+        margin: 0 auto;
+        background: var(--paper);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 410px;
+        display: grid;
+        align-items: end;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.08) 0%,
+            rgba(0, 0, 0, 0.2) 48%,
+            rgba(0, 0, 0, 0.66) 100%
+          ),
+          url("assets/lunch-hero.png") center / cover no-repeat;
+      }
+
+      .hero-content {
+        padding: 28px 22px 34px;
+        color: #fff;
+      }
+
+      .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 32px;
+        padding: 7px 11px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.22);
+        backdrop-filter: blur(14px);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      h1 {
+        width: min(100%, 620px);
+        margin: 18px 0 10px;
+        font-size: clamp(38px, 8vw, 66px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        width: min(100%, 560px);
+        margin: 0;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 16px;
+      }
+
+      .content {
+        padding: 22px;
+      }
+
+      .brief {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 20px 0 8px;
+      }
+
+      .brief-title {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        padding: 8px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.68);
+        color: #3f484b;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .places {
+        display: grid;
+        gap: 14px;
+        margin: 18px 0 0;
+      }
+
+      .place {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        min-height: 180px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 8px 22px rgba(31, 37, 40, 0.06);
+      }
+
+      .rank {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        color: #fff;
+        background: var(--sage);
+        font-weight: 900;
+      }
+
+      .place:nth-child(2) .rank {
+        background: var(--brick);
+      }
+
+      .place:nth-child(3) .rank {
+        background: var(--blue);
+      }
+
+      .place:nth-child(4) .rank {
+        background: var(--mustard);
+      }
+
+      .place-main {
+        min-width: 0;
+      }
+
+      .place-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .place h2 {
+        margin: 0;
+        font-size: 22px;
+        line-height: 1.18;
+      }
+
+      .tag {
+        flex: 0 0 auto;
+        padding: 6px 9px;
+        border-radius: 999px;
+        background: #f2efe6;
+        color: #5b5141;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .meta span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+      }
+
+      .reason {
+        margin: 12px 0 14px;
+        color: #394144;
+        font-size: 15px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 9px 13px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .button.primary {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .button.secondary {
+        border: 1px solid var(--line);
+        background: #fff;
+        color: #2f3639;
+      }
+
+      .summary {
+        margin: 18px 0 10px;
+        padding: 18px;
+        border-radius: 8px;
+        background: #233033;
+        color: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .summary h2 {
+        margin: 0 0 12px;
+        font-size: 20px;
+      }
+
+      .summary-grid {
+        display: grid;
+        gap: 10px;
+      }
+
+      .pick {
+        display: grid;
+        grid-template-columns: 112px 1fr;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .pick strong {
+        color: #f6d389;
+      }
+
+      .pick span {
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .footer-note {
+        padding: 16px 4px 22px;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      @media (min-width: 760px) {
+        .page {
+          margin: 28px auto;
+          border: 1px solid var(--line);
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: var(--shadow);
+        }
+
+        .hero-content,
+        .content {
+          padding-left: 38px;
+          padding-right: 38px;
+        }
+
+        .brief {
+          grid-template-columns: 1fr auto;
+          align-items: center;
+        }
+
+        .places {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .place {
+          grid-template-columns: 1fr;
+        }
+
+        .summary-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 420px) {
+        .hero {
+          min-height: 360px;
+        }
+
+        .content {
+          padding: 18px 16px;
+        }
+
+        .place {
+          grid-template-columns: 1fr;
+        }
+
+        .place-top {
+          display: grid;
+        }
+
+        .tag {
+          width: fit-content;
+        }
+
+        .pick {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero" aria-label="점심 후보 소개">
+        <div class="hero-content">
+          <div class="label">샘플 큐레이션 · 2026.06.14 점심</div>
+          <h1>내일 점심 후보 4곳</h1>
+          <p>
+            오래 고르지 않아도 괜찮게 보이도록, 분위기와 이동 동선까지 같이
+            묶어둔 점심 후보 리스트.
+          </p>
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="brief">
+          <h2 class="brief-title">오늘 고른 기준</h2>
+          <div class="chips" aria-label="선정 기준">
+            <span class="chip">도보 15분 안팎</span>
+            <span class="chip">점심 실패 확률 낮음</span>
+            <span class="chip">대화하기 편한 분위기</span>
+            <span class="chip">가격 부담 적당함</span>
+          </div>
+        </div>
+
+        <section class="places" aria-label="점심 후보 목록">
+          <article class="place">
+            <div class="rank">1</div>
+            <div class="place-main">
+              <div class="place-top">
+                <h2>소담한상</h2>
+                <span class="tag">가장 무난</span>
+              </div>
+              <div class="meta">
+                <span>한식</span>
+                <span>12,000~16,000원</span>
+                <span>도보 8분</span>
+              </div>
+              <p class="reason">
+                메뉴 선택이 쉽고 호불호가 적은 편. 오래 앉아 이야기하기에도
+                부담이 덜한 분위기.
+              </p>
+              <div class="actions">
+                <a
+                  class="button primary"
+                  href="https://www.google.com/maps/search/?api=1&query=%EC%86%8C%EB%8B%B4%ED%95%9C%EC%83%81"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  지도 보기
+                </a>
+                <a
+                  class="button secondary"
+                  href="https://www.google.com/search?q=%EC%86%8C%EB%8B%B4%ED%95%9C%EC%83%81+%EB%A9%94%EB%89%B4"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  메뉴 검색
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="place">
+            <div class="rank">2</div>
+            <div class="place-main">
+              <div class="place-top">
+                <h2>카츠 모리</h2>
+                <span class="tag">깔끔한 선택</span>
+              </div>
+              <div class="meta">
+                <span>일식</span>
+                <span>14,000~18,000원</span>
+                <span>웨이팅 가능</span>
+              </div>
+              <p class="reason">
+                점심 만족도가 높아 보이는 구성. 너무 무겁지 않게 먹고 싶을 때
+                고르기 좋은 후보.
+              </p>
+              <div class="actions">
+                <a
+                  class="button primary"
+                  href="https://www.google.com/maps/search/?api=1&query=%EC%B9%B4%EC%B8%A0+%EB%AA%A8%EB%A6%AC"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  지도 보기
+                </a>
+                <a
+                  class="button secondary"
+                  href="https://www.google.com/search?q=%EC%B9%B4%EC%B8%A0+%EB%AA%A8%EB%A6%AC+%EB%A9%94%EB%89%B4"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  메뉴 검색
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="place">
+            <div class="rank">3</div>
+            <div class="place-main">
+              <div class="place-top">
+                <h2>누들 스튜디오</h2>
+                <span class="tag">빠른 점심</span>
+              </div>
+              <div class="meta">
+                <span>면요리</span>
+                <span>10,000~13,000원</span>
+                <span>회전율 좋음</span>
+              </div>
+              <p class="reason">
+                시간이 애매할 때 가장 부담 없는 선택. 날씨가 더우면 시원한
+                메뉴로도 맞추기 쉬움.
+              </p>
+              <div class="actions">
+                <a
+                  class="button primary"
+                  href="https://www.google.com/maps/search/?api=1&query=%EB%88%84%EB%93%A4+%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  지도 보기
+                </a>
+                <a
+                  class="button secondary"
+                  href="https://www.google.com/search?q=%EB%88%84%EB%93%A4+%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4+%EB%A9%94%EB%89%B4"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  메뉴 검색
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="place">
+            <div class="rank">4</div>
+            <div class="place-main">
+              <div class="place-top">
+                <h2>오븐룸</h2>
+                <span class="tag">분위기 좋음</span>
+              </div>
+              <div class="meta">
+                <span>양식</span>
+                <span>16,000~22,000원</span>
+                <span>천천히 먹기 좋음</span>
+              </div>
+              <p class="reason">
+                가볍게 특별한 느낌을 내고 싶을 때 어울리는 후보. 사진으로도
+                깔끔하게 보일 만한 장소.
+              </p>
+              <div class="actions">
+                <a
+                  class="button primary"
+                  href="https://www.google.com/maps/search/?api=1&query=%EC%98%A4%EB%B8%90%EB%A3%B8"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  지도 보기
+                </a>
+                <a
+                  class="button secondary"
+                  href="https://www.google.com/search?q=%EC%98%A4%EB%B8%90%EB%A3%B8+%EB%A9%94%EB%89%B4"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  메뉴 검색
+                </a>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="summary" aria-label="추천 요약">
+          <h2>마지막 추천</h2>
+          <div class="summary-grid">
+            <div class="pick">
+              <strong>무난하게</strong>
+              <span>소담한상</span>
+            </div>
+            <div class="pick">
+              <strong>깔끔하게</strong>
+              <span>카츠 모리</span>
+            </div>
+            <div class="pick">
+              <strong>빠르게</strong>
+              <span>누들 스튜디오</span>
+            </div>
+            <div class="pick">
+              <strong>분위기 있게</strong>
+              <span>오븐룸</span>
+            </div>
+          </div>
+        </section>
+
+        <p class="footer-note">
+          실제 장소 링크를 받으면 이 샘플 카드를 그대로 교체해서 보낼 수 있어요.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
