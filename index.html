@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>내일 점심 후보 4곳</title>
+    <title>내일 전체 일정</title>
     <style>
       :root {
         color-scheme: light;
-        --ink: #1f2528;
-        --muted: #687176;
+        --ink: #20272a;
+        --muted: #667277;
         --line: #dce2df;
         --paper: #fbfaf6;
         --panel: #ffffff;
@@ -62,9 +62,9 @@
         background:
           linear-gradient(
             180deg,
-            rgba(0, 0, 0, 0.08) 0%,
-            rgba(0, 0, 0, 0.2) 48%,
-            rgba(0, 0, 0, 0.66) 100%
+            rgba(0, 0, 0, 0.05) 0%,
+            rgba(0, 0, 0, 0.25) 45%,
+            rgba(0, 0, 0, 0.68) 100%
           ),
           url("assets/lunch-hero.png") center / cover no-repeat;
       }
@@ -77,7 +77,6 @@
       .label {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
         min-height: 32px;
         padding: 7px 11px;
         border: 1px solid rgba(255, 255, 255, 0.45);
@@ -85,22 +84,15 @@
         background: rgba(0, 0, 0, 0.22);
         backdrop-filter: blur(14px);
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 800;
       }
 
       h1 {
-        width: min(100%, 620px);
+        width: min(100%, 650px);
         margin: 18px 0 10px;
-        font-size: clamp(38px, 8vw, 66px);
+        font-size: clamp(40px, 8vw, 68px);
         line-height: 0.98;
         letter-spacing: 0;
-      }
-
-      .hero p {
-        width: min(100%, 560px);
-        margin: 0;
-        color: rgba(255, 255, 255, 0.86);
-        font-size: 16px;
       }
 
       .content {
@@ -129,23 +121,23 @@
         padding: 8px 11px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.68);
+        background: rgba(255, 255, 255, 0.72);
         color: #3f484b;
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 800;
       }
 
-      .places {
+      .cards {
         display: grid;
         gap: 14px;
         margin: 18px 0 0;
       }
 
-      .place {
+      .card {
         display: grid;
         grid-template-columns: auto 1fr;
         gap: 14px;
-        min-height: 180px;
+        min-height: 190px;
         padding: 16px;
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -153,9 +145,9 @@
         box-shadow: 0 8px 22px rgba(31, 37, 40, 0.06);
       }
 
-      .rank {
-        width: 44px;
-        height: 44px;
+      .mark {
+        width: 46px;
+        height: 46px;
         display: grid;
         place-items: center;
         border-radius: 50%;
@@ -164,30 +156,22 @@
         font-weight: 900;
       }
 
-      .place:nth-child(2) .rank {
+      .card:nth-child(2) .mark {
         background: var(--brick);
       }
 
-      .place:nth-child(3) .rank {
-        background: var(--blue);
-      }
-
-      .place:nth-child(4) .rank {
-        background: var(--mustard);
-      }
-
-      .place-main {
+      .card-main {
         min-width: 0;
       }
 
-      .place-top {
+      .card-top {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
         gap: 12px;
       }
 
-      .place h2 {
+      .card h2 {
         margin: 0;
         font-size: 22px;
         line-height: 1.18;
@@ -200,7 +184,7 @@
         background: #f2efe6;
         color: #5b5141;
         font-size: 12px;
-        font-weight: 800;
+        font-weight: 900;
         white-space: nowrap;
       }
 
@@ -219,82 +203,94 @@
         min-height: 24px;
       }
 
-      .reason {
+      .description {
         margin: 12px 0 14px;
         color: #394144;
         font-size: 15px;
       }
 
-      .actions {
+      .plan-tabs {
+        margin: 18px 0 0;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 8px 22px rgba(31, 37, 40, 0.06);
+      }
+
+      .plan-tabs h2 {
+        margin: 0 0 12px;
+        font-size: 22px;
+        line-height: 1.18;
+      }
+
+      .tab-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding: 4px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #f2efe6;
+      }
+
+      .tab-button {
+        min-height: 44px;
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: #4c565a;
+        cursor: pointer;
+        font: inherit;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .tab-button[aria-selected="true"] {
+        background: var(--ink);
+        color: #fff;
+        box-shadow: 0 6px 16px rgba(31, 37, 40, 0.14);
+      }
+
+      .plan-panel {
+        margin: 14px 0 0;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .plan-panel[hidden] {
+        display: none;
+      }
+
+      .plan-heading {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 0 0 10px;
+      }
+
+      .plan-heading h3 {
+        margin: 0;
+        font-size: 24px;
+        line-height: 1.15;
+      }
+
+      .plan-meta {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 40px;
-        padding: 9px 13px;
-        border-radius: 6px;
-        font-size: 14px;
-        font-weight: 800;
-      }
-
-      .button.primary {
-        background: var(--ink);
-        color: #fff;
-      }
-
-      .button.secondary {
-        border: 1px solid var(--line);
-        background: #fff;
-        color: #2f3639;
-      }
-
-      .summary {
-        margin: 18px 0 10px;
-        padding: 18px;
-        border-radius: 8px;
-        background: #233033;
-        color: #fff;
-        box-shadow: var(--shadow);
-      }
-
-      .summary h2 {
         margin: 0 0 12px;
-        font-size: 20px;
-      }
-
-      .summary-grid {
-        display: grid;
-        gap: 10px;
-      }
-
-      .pick {
-        display: grid;
-        grid-template-columns: 112px 1fr;
-        gap: 10px;
-        padding: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.07);
-      }
-
-      .pick strong {
-        color: #f6d389;
-      }
-
-      .pick span {
-        color: rgba(255, 255, 255, 0.78);
-      }
-
-      .footer-note {
-        padding: 16px 4px 22px;
         color: var(--muted);
-        font-size: 13px;
-        text-align: center;
+        font-size: 14px;
+      }
+
+      .plan-panel p {
+        margin: 0;
+        color: #394144;
+        font-size: 15px;
       }
 
       @media (min-width: 760px) {
@@ -317,16 +313,16 @@
           align-items: center;
         }
 
-        .places {
+        .cards {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        .place {
+        .card {
           grid-template-columns: 1fr;
         }
 
-        .summary-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+        .plan-tabs {
+          padding: 18px;
         }
       }
 
@@ -339,11 +335,11 @@
           padding: 18px 16px;
         }
 
-        .place {
+        .card {
           grid-template-columns: 1fr;
         }
 
-        .place-top {
+        .card-top {
           display: grid;
         }
 
@@ -351,212 +347,164 @@
           width: fit-content;
         }
 
-        .pick {
-          grid-template-columns: 1fr;
+        .plan-heading {
+          display: grid;
         }
       }
     </style>
   </head>
   <body>
     <main class="page">
-      <section class="hero" aria-label="점심 후보 소개">
+      <section class="hero" aria-label="내일 일정 소개">
         <div class="hero-content">
-          <div class="label">샘플 큐레이션 · 2026.06.14 점심</div>
-          <h1>내일 점심 후보 4곳</h1>
-          <p>
-            오래 고르지 않아도 괜찮게 보이도록, 분위기와 이동 동선까지 같이
-            묶어둔 점심 후보 리스트.
-          </p>
+          <div class="label">2026.06.14 일요일</div>
+          <h1>내일 전체 일정</h1>
         </div>
       </section>
 
       <section class="content">
         <div class="brief">
-          <h2 class="brief-title">오늘 고른 기준</h2>
-          <div class="chips" aria-label="선정 기준">
-            <span class="chip">도보 15분 안팎</span>
-            <span class="chip">점심 실패 확률 낮음</span>
-            <span class="chip">대화하기 편한 분위기</span>
-            <span class="chip">가격 부담 적당함</span>
+          <h2 class="brief-title">전체 흐름</h2>
+          <div class="chips" aria-label="일정 요약">
+            <span class="chip">점심 · 광교 아비뉴프랑</span>
+            <span class="chip">커피 · 근처 카페 또는 신동카페거리</span>
+            <span class="chip">Plan A · 행궁동</span>
+            <span class="chip">Plan B · 수원 스타필드</span>
           </div>
         </div>
 
-        <section class="places" aria-label="점심 후보 목록">
-          <article class="place">
-            <div class="rank">1</div>
-            <div class="place-main">
-              <div class="place-top">
-                <h2>소담한상</h2>
-                <span class="tag">가장 무난</span>
+        <section class="cards" aria-label="일정 구성">
+          <article class="card">
+            <div class="mark">1</div>
+            <div class="card-main">
+              <div class="card-top">
+                <h2>점심</h2>
+                <span class="tag">식당은 업데이트 예정</span>
               </div>
               <div class="meta">
-                <span>한식</span>
-                <span>12,000~16,000원</span>
-                <span>도보 8분</span>
+                <span>광교 아비뉴프랑</span>
+                <span>식당 후보 추후 추가</span>
               </div>
-              <p class="reason">
-                메뉴 선택이 쉽고 호불호가 적은 편. 오래 앉아 이야기하기에도
-                부담이 덜한 분위기.
+              <p class="description">
+                점심은 광교 아비뉴프랑 안에서 먹는 방향으로 먼저 잡았습니다.
+                식당이 정해지면 이 카드에 메뉴, 가격대, 간단한 설명을 추가할게요.
               </p>
-              <div class="actions">
-                <a
-                  class="button primary"
-                  href="https://www.google.com/maps/search/?api=1&query=%EC%86%8C%EB%8B%B4%ED%95%9C%EC%83%81"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  지도 보기
-                </a>
-                <a
-                  class="button secondary"
-                  href="https://www.google.com/search?q=%EC%86%8C%EB%8B%B4%ED%95%9C%EC%83%81+%EB%A9%94%EB%89%B4"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  메뉴 검색
-                </a>
-              </div>
             </div>
           </article>
 
-          <article class="place">
-            <div class="rank">2</div>
-            <div class="place-main">
-              <div class="place-top">
-                <h2>카츠 모리</h2>
-                <span class="tag">깔끔한 선택</span>
+          <article class="card">
+            <div class="mark">2</div>
+            <div class="card-main">
+              <div class="card-top">
+                <h2>커피</h2>
+                <span class="tag">카페는 유동적으로</span>
               </div>
               <div class="meta">
-                <span>일식</span>
-                <span>14,000~18,000원</span>
-                <span>웨이팅 가능</span>
+                <span>아비뉴프랑 근처</span>
+                <span>또는 신동카페거리</span>
               </div>
-              <p class="reason">
-                점심 만족도가 높아 보이는 구성. 너무 무겁지 않게 먹고 싶을 때
-                고르기 좋은 후보.
+              <p class="description">
+                점심 먹은 뒤 근처에서 바로 커피를 마시거나, 분위기를 조금 더
+                보려면 신동카페거리 쪽으로 이동하는 흐름입니다.
               </p>
-              <div class="actions">
-                <a
-                  class="button primary"
-                  href="https://www.google.com/maps/search/?api=1&query=%EC%B9%B4%EC%B8%A0+%EB%AA%A8%EB%A6%AC"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  지도 보기
-                </a>
-                <a
-                  class="button secondary"
-                  href="https://www.google.com/search?q=%EC%B9%B4%EC%B8%A0+%EB%AA%A8%EB%A6%AC+%EB%A9%94%EB%89%B4"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  메뉴 검색
-                </a>
-              </div>
             </div>
           </article>
 
-          <article class="place">
-            <div class="rank">3</div>
-            <div class="place-main">
-              <div class="place-top">
-                <h2>누들 스튜디오</h2>
-                <span class="tag">빠른 점심</span>
-              </div>
-              <div class="meta">
-                <span>면요리</span>
-                <span>10,000~13,000원</span>
-                <span>회전율 좋음</span>
-              </div>
-              <p class="reason">
-                시간이 애매할 때 가장 부담 없는 선택. 날씨가 더우면 시원한
-                메뉴로도 맞추기 쉬움.
-              </p>
-              <div class="actions">
-                <a
-                  class="button primary"
-                  href="https://www.google.com/maps/search/?api=1&query=%EB%88%84%EB%93%A4+%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  지도 보기
-                </a>
-                <a
-                  class="button secondary"
-                  href="https://www.google.com/search?q=%EB%88%84%EB%93%A4+%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4+%EB%A9%94%EB%89%B4"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  메뉴 검색
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article class="place">
-            <div class="rank">4</div>
-            <div class="place-main">
-              <div class="place-top">
-                <h2>오븐룸</h2>
-                <span class="tag">분위기 좋음</span>
-              </div>
-              <div class="meta">
-                <span>양식</span>
-                <span>16,000~22,000원</span>
-                <span>천천히 먹기 좋음</span>
-              </div>
-              <p class="reason">
-                가볍게 특별한 느낌을 내고 싶을 때 어울리는 후보. 사진으로도
-                깔끔하게 보일 만한 장소.
-              </p>
-              <div class="actions">
-                <a
-                  class="button primary"
-                  href="https://www.google.com/maps/search/?api=1&query=%EC%98%A4%EB%B8%90%EB%A3%B8"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  지도 보기
-                </a>
-                <a
-                  class="button secondary"
-                  href="https://www.google.com/search?q=%EC%98%A4%EB%B8%90%EB%A3%B8+%EB%A9%94%EB%89%B4"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  메뉴 검색
-                </a>
-              </div>
-            </div>
-          </article>
         </section>
 
-        <section class="summary" aria-label="추천 요약">
-          <h2>마지막 추천</h2>
-          <div class="summary-grid">
-            <div class="pick">
-              <strong>무난하게</strong>
-              <span>소담한상</span>
-            </div>
-            <div class="pick">
-              <strong>깔끔하게</strong>
-              <span>카츠 모리</span>
-            </div>
-            <div class="pick">
-              <strong>빠르게</strong>
-              <span>누들 스튜디오</span>
-            </div>
-            <div class="pick">
-              <strong>분위기 있게</strong>
-              <span>오븐룸</span>
-            </div>
+        <section class="plan-tabs" aria-label="Plan A와 Plan B 선택">
+          <h2>플랜 선택</h2>
+          <div class="tab-buttons" role="tablist" aria-label="날씨별 플랜">
+            <button
+              class="tab-button"
+              type="button"
+              role="tab"
+              id="plan-a-tab"
+              aria-controls="plan-a-panel"
+              aria-selected="true"
+              data-plan-tab="a"
+            >
+              Plan A
+            </button>
+            <button
+              class="tab-button"
+              type="button"
+              role="tab"
+              id="plan-b-tab"
+              aria-controls="plan-b-panel"
+              aria-selected="false"
+              data-plan-tab="b"
+            >
+              Plan B
+            </button>
           </div>
-        </section>
 
-        <p class="footer-note">
-          실제 장소 링크를 받으면 이 샘플 카드를 그대로 교체해서 보낼 수 있어요.
-        </p>
+          <article
+            class="plan-panel"
+            id="plan-a-panel"
+            role="tabpanel"
+            aria-labelledby="plan-a-tab"
+            data-plan-panel="a"
+          >
+            <div class="plan-heading">
+              <h3>Plan A · 행궁동</h3>
+              <span class="tag">날씨 괜찮으면</span>
+            </div>
+            <div class="plan-meta">
+              <span>행궁동</span>
+              <span>걷기 좋은 날 선택</span>
+            </div>
+            <p>
+              너무 덥지 않고 비가 안 오면 행궁동으로 이동합니다. 행궁동 안의
+              상세 코스는 나중에 업데이트할 예정입니다.
+            </p>
+          </article>
+
+          <article
+            class="plan-panel"
+            id="plan-b-panel"
+            role="tabpanel"
+            aria-labelledby="plan-b-tab"
+            data-plan-panel="b"
+            hidden
+          >
+            <div class="plan-heading">
+              <h3>Plan B · 수원 스타필드</h3>
+              <span class="tag">덥거나 비 오면</span>
+            </div>
+            <div class="plan-meta">
+              <span>수원 스타필드</span>
+              <span>실내 중심 대안</span>
+            </div>
+            <p>
+              날씨가 좋지 않으면 수원 스타필드로 가는 플랜입니다. 실내라 이동
+              부담이 적고, 식사 후 일정 변경도 편합니다.
+            </p>
+          </article>
+        </section>
       </section>
     </main>
+
+    <script>
+      const tabs = document.querySelectorAll("[data-plan-tab]");
+      const panels = document.querySelectorAll("[data-plan-panel]");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const selectedPlan = tab.dataset.planTab;
+
+          tabs.forEach((item) => {
+            item.setAttribute(
+              "aria-selected",
+              item.dataset.planTab === selectedPlan ? "true" : "false",
+            );
+          });
+
+          panels.forEach((panel) => {
+            panel.hidden = panel.dataset.planPanel !== selectedPlan;
+          });
+        });
+      });
+    </script>
   </body>
 </html>
